@@ -12,15 +12,16 @@ def checkIp(filename, ip):
     for line in textLines:
         words = line.split()
         if words[0] == ip:
-                counter[words[0]] += 1
-    
+            counter[words[0]] += 1
+
     if sum(counter.values()) == 0:
         counter[ip] = 0
 
     return counter
 
+
 def requestVal(filename):
-    fp =open(filename, encoding='UTF-8')
+    fp = open(filename, encoding='UTF-8')
     text_lines = fp.readlines()
     fp.close()
 
@@ -32,22 +33,24 @@ def requestVal(filename):
 
     return counter
 
+
 if __name__ == '__main__':
-   
-    counter = checkIp(sys.argv[1], "79.136.245.135")
+
+    filename = sys.argv[1]
+    counter = checkIp(filename, "79.136.245.135")
     for ip in counter:
         print("Запросов с {} сделано -- {}".format(ip, counter[ip]))
 
-    counter = checkIp(sys.argv[1], "127.0.0.1")
+    counter = checkIp(filename, "127.0.0.1")
     for ip in counter:
         print("Запросов с {} сделано -- {}".format(ip, counter[ip]))
 
-    counter = requestVal(sys.argv[1])
-    n = 2
-    for word, cnt in counter.most_common(1):
-        print("Максимальное число запросов с {} -- {}".format(word, cnt))
+        counter = requestVal(filename)
+        n = 2
+        for word, cnt in counter.most_common(1):
+            print("Максимальное число запросов с {} -- {}".format(word, cnt))
 
-    counter = requestVal(sys.argv[1])
-    n = 2
-    for word, cnt in counter.most_common()[:-n-1:-1]:
-        print("Минимальное число запросов с {} -- {}".format(word, cnt))
+        counter = requestVal(filename)
+        n = 2
+        for word, cnt in counter.most_common()[:-n-1:-1]:
+            print("Минимальное число запросов с {} -- {}".format(word, cnt))
